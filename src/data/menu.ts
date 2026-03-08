@@ -373,7 +373,7 @@ export const menuItems: MenuItem[] = [
     name: "Caramel Almond",
     description: "Caramel swirl brownie with toasted almonds",
     price: 399,
-    image: brownieImg,
+    image: caramelAlmondBrownieImg,
     category: "Brownies",
   },
   {
