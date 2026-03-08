@@ -62,6 +62,7 @@ const defaultState: SandwichCustomization = {
 };
 
 const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
+  const { removals: REMOVALS, extras: EXTRAS } = SANDWICH_OPTIONS[item.id] ?? { removals: DEFAULT_REMOVALS, extras: DEFAULT_EXTRAS };
   const [customization, setCustomization] = useState<SandwichCustomization>({ ...defaultState });
 
   const extrasTotal = useMemo(
