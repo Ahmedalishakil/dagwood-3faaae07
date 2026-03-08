@@ -6,6 +6,7 @@ import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 import CartSidebar from "@/components/CartSidebar";
+import DessertBanner from "@/components/DessertBanner";
 import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 
