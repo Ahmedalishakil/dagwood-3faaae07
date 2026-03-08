@@ -111,10 +111,14 @@
     background: linear-gradient(135deg, hsl(7 95% 36%), hsl(7 85% 28%));
   }
   .shadow-card {
-    box-shadow: 0 4px 24px -4px hsl(var(--foreground) / 0.06);
+    box-shadow: 
+      6px 6px 14px hsl(var(--foreground) / 0.08),
+      -6px -6px 14px hsl(0 0% 100% / 0.7);
   }
   .shadow-card-hover {
-    box-shadow: 0 8px 32px -4px hsl(var(--primary) / 0.15);
+    box-shadow: 
+      3px 3px 8px hsl(var(--foreground) / 0.1),
+      -3px -3px 8px hsl(0 0% 100% / 0.8);
   }
 
   /* Banner specific utilities */
