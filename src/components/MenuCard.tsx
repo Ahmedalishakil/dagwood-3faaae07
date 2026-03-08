@@ -30,7 +30,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       whileHover={{ y: -4 }}
-      className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-shadow hover:shadow-card-hover"
+      className="group relative overflow-hidden rounded-[20px] border-0 bg-secondary shadow-card transition-shadow hover:shadow-card-hover"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
