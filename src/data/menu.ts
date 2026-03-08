@@ -381,7 +381,7 @@ export const menuItems: MenuItem[] = [
     name: "Boston Creamy",
     description: "Boston cream inspired brownie",
     price: 320,
-    image: brownieImg,
+    image: bostonBrownieImg,
     category: "Brownies",
   },
 
