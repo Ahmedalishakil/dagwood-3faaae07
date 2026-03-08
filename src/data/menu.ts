@@ -6,6 +6,18 @@ import specialDrinksImg from "@/assets/menu/special-drinks.jpg";
 import shakeImg from "@/assets/menu/shake.jpg";
 import coffeeImg from "@/assets/menu/coffee.jpg";
 import icedCoffeeImg from "@/assets/menu/iced-coffee.jpg";
+import americanoImg from "@/assets/menu/americano.jpg";
+import latteImg from "@/assets/menu/latte.jpg";
+import cappuccinoImg from "@/assets/menu/cappuccino.jpg";
+import caramelLatteImg from "@/assets/menu/caramel-latte.jpg";
+import mochaImg from "@/assets/menu/mocha.jpg";
+import hotChocolateImg from "@/assets/menu/hot-chocolate.jpg";
+import espressoImg from "@/assets/menu/espresso.jpg";
+import macchiatoImg from "@/assets/menu/macchiato.jpg";
+import icedAmericanoImg from "@/assets/menu/iced-americano.jpg";
+import icedLatteImg from "@/assets/menu/iced-latte.jpg";
+import icedMochaImg from "@/assets/menu/iced-mocha.jpg";
+import icedCaramelLatteImg from "@/assets/menu/iced-caramel-latte.jpg";
 import cakeImg from "@/assets/menu/cake.jpg";
 import pistachioCakeImg from "@/assets/menu/pistachio-cake.jpg";
 import cheesecakeImg from "@/assets/menu/cheesecake.jpg";
@@ -154,7 +166,7 @@ export const menuItems: MenuItem[] = [
     name: "Americano",
     description: "Classic espresso with hot water",
     price: 450,
-    image: coffeeImg,
+    image: americanoImg,
     category: "Hot Coffee",
   },
   {
@@ -162,7 +174,7 @@ export const menuItems: MenuItem[] = [
     name: "Latte",
     description: "Smooth espresso with steamed milk",
     price: 650,
-    image: coffeeImg,
+    image: latteImg,
     category: "Hot Coffee",
   },
   {
@@ -170,7 +182,7 @@ export const menuItems: MenuItem[] = [
     name: "Cappuccino",
     description: "Espresso, steamed milk & rich foam",
     price: 650,
-    image: coffeeImg,
+    image: cappuccinoImg,
     category: "Hot Coffee",
   },
   {
@@ -178,7 +190,7 @@ export const menuItems: MenuItem[] = [
     name: "Caramel Latte",
     description: "Latte with sweet caramel drizzle",
     price: 700,
-    image: coffeeImg,
+    image: caramelLatteImg,
     category: "Hot Coffee",
     badge: "Popular",
   },
@@ -187,7 +199,7 @@ export const menuItems: MenuItem[] = [
     name: "Mocha",
     description: "Espresso, chocolate & steamed milk",
     price: 750,
-    image: coffeeImg,
+    image: mochaImg,
     category: "Hot Coffee",
   },
   {
@@ -195,7 +207,7 @@ export const menuItems: MenuItem[] = [
     name: "Hot Chocolate",
     description: "Rich and creamy hot chocolate",
     price: 780,
-    image: coffeeImg,
+    image: hotChocolateImg,
     category: "Hot Coffee",
   },
   {
@@ -203,7 +215,7 @@ export const menuItems: MenuItem[] = [
     name: "Espresso",
     description: "Double shot of pure espresso",
     price: 550,
-    image: coffeeImg,
+    image: espressoImg,
     category: "Hot Coffee",
   },
   {
@@ -211,7 +223,7 @@ export const menuItems: MenuItem[] = [
     name: "Macchiato",
     description: "Espresso marked with a dash of milk",
     price: 530,
-    image: coffeeImg,
+    image: macchiatoImg,
     category: "Hot Coffee",
   },
 
@@ -221,7 +233,7 @@ export const menuItems: MenuItem[] = [
     name: "Iced Americano",
     description: "Chilled espresso over ice",
     price: 670,
-    image: icedCoffeeImg,
+    image: icedAmericanoImg,
     category: "Cold Coffee",
   },
   {
@@ -229,7 +241,7 @@ export const menuItems: MenuItem[] = [
     name: "Iced Latte",
     description: "Cold milk with espresso over ice",
     price: 850,
-    image: icedCoffeeImg,
+    image: icedLatteImg,
     category: "Cold Coffee",
   },
   {
@@ -237,7 +249,7 @@ export const menuItems: MenuItem[] = [
     name: "Iced Mocha",
     description: "Chocolate espresso served cold",
     price: 920,
-    image: icedCoffeeImg,
+    image: icedMochaImg,
     category: "Cold Coffee",
   },
   {
@@ -245,7 +257,7 @@ export const menuItems: MenuItem[] = [
     name: "Iced Caramel Latte",
     description: "Caramel drizzle iced latte",
     price: 970,
-    image: icedCoffeeImg,
+    image: icedCaramelLatteImg,
     category: "Cold Coffee",
     badge: "Popular",
   },
