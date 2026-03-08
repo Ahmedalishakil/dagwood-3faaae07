@@ -32,6 +32,10 @@ import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
 import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
 import strawberryMintImg from "@/assets/menu/strawberry-mint.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
+import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
+import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
+import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
+import butterCroissantImg from "@/assets/menu/butter-croissant.jpg";
 
 export type MenuItem = {
   id: string;
