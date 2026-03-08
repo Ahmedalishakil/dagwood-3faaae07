@@ -17,6 +17,7 @@ import darkTemptationImg from "@/assets/menu/dark-temptation.png";
 import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
 import berryBlastImg from "@/assets/menu/berry-blast.png";
 import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
+import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 
 export type MenuItem = {
