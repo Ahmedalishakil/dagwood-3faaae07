@@ -15,6 +15,7 @@ export default {
     fontFamily: {
       display: ['Playfair Display', 'serif'],
       body: ['DM Sans', 'sans-serif'],
+      elegant: ['Cormorant Garamond', 'serif'],
     },
     extend: {
       colors: {
@@ -22,6 +23,7 @@ export default {
           dark: "hsl(var(--brand-dark))",
           cream: "hsl(var(--brand-cream))",
           gold: "hsl(var(--brand-gold))",
+          charcoal: "hsl(var(--brand-charcoal))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

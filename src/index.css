@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -24,8 +24,8 @@
     --muted: 30 15% 94%;
     --muted-foreground: 20 5% 45%;
 
-    --accent: 40 90% 55%;
-    --accent-foreground: 20 10% 12%;
+    --accent: 32 60% 50%;
+    --accent-foreground: 30 20% 92%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -38,7 +38,8 @@
 
     --brand-dark: 14 65% 38%;
     --brand-cream: 35 40% 95%;
-    --brand-gold: 40 90% 55%;
+    --brand-gold: 32 60% 50%;
+    --brand-charcoal: 20 30% 5%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -51,6 +52,7 @@
 
     --font-display: 'Playfair Display', serif;
     --font-body: 'DM Sans', sans-serif;
+    --font-elegant: 'Cormorant Garamond', serif;
   }
 
   .dark {
@@ -66,7 +68,7 @@
     --secondary-foreground: 30 20% 90%;
     --muted: 20 10% 16%;
     --muted-foreground: 30 10% 55%;
-    --accent: 40 90% 55%;
+    --accent: 32 60% 50%;
     --accent-foreground: 20 10% 8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
@@ -98,6 +100,9 @@
 }
 
 @layer utilities {
+  .font-elegant {
+    font-family: var(--font-elegant);
+  }
   .text-gradient-brand {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--brand-dark)));
@@ -110,5 +115,39 @@
   }
   .shadow-card-hover {
     box-shadow: 0 8px 32px -4px hsl(var(--primary) / 0.15);
+  }
+
+  /* Banner specific utilities */
+  .banner-gradient-overlay {
+    background: linear-gradient(
+      to right,
+      hsl(var(--brand-charcoal)) 0%,
+      hsl(var(--brand-charcoal)) 30%,
+      hsl(var(--brand-charcoal) / 0.85) 45%,
+      hsl(var(--brand-charcoal) / 0.4) 65%,
+      transparent 100%
+    );
+  }
+  .banner-smoke {
+    background: radial-gradient(ellipse at 70% 30%, hsl(var(--brand-gold) / 0.08) 0%, transparent 60%);
+  }
+  .banner-bottom-border {
+    border-top: 1px solid hsl(var(--brand-gold) / 0.25);
+    background: hsl(var(--brand-charcoal) / 0.92);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
   }
 }

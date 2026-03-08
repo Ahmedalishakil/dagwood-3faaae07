@@ -3,48 +3,113 @@ import heroImg from "@/assets/hero-food.jpg";
 
 const HeroBanner = () => {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0">
-        <img src={heroImg} alt="Delicious Dagwood food" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
+    <section className="relative overflow-hidden" style={{ height: "520px" }}>
+      {/* Background image — right 65% */}
+      <img
+        src={heroImg}
+        alt="Delicious Dagwood food"
+        className="absolute right-0 top-0 h-full w-[65%] object-cover object-center"
+      />
+
+      {/* Dark gradient overlay */}
+      <div className="banner-gradient-overlay absolute inset-0 z-[1]" />
+
+      {/* Warm smoke/glow overlay */}
+      <div className="banner-smoke absolute inset-0 z-[2]" />
+
+      {/* Content — left side */}
+      <div className="absolute left-0 top-0 z-[3] flex h-full w-[55%] flex-col justify-center px-6 py-12 sm:px-14">
+        {/* Label */}
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="font-elegant text-[11px] font-light italic uppercase tracking-[0.35em] text-brand-gold"
+        >
+          Signature Collection
+        </motion.span>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="mt-5 font-display text-5xl font-black uppercase leading-none tracking-tight text-brand-cream sm:text-6xl lg:text-7xl"
+        >
+          Grilled
+          <span className="block text-brand-gold">Perfection</span>
+        </motion.h1>
+
+        {/* Divider */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="my-5 h-px w-16"
+          style={{
+            background: "linear-gradient(to right, hsl(32 60% 50%), transparent)",
+          }}
+        />
+
+        {/* Subtext */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="font-elegant text-[15px] font-light leading-relaxed tracking-widest text-brand-cream/65"
+          style={{ maxWidth: "260px" }}
+        >
+          Slow-smoked, flame-kissed & crafted with passion. Experience Lahore's finest flavors.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.a
+          href="#menu"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
+          className="group mt-8 inline-flex items-center gap-3 font-elegant text-xs uppercase tracking-[0.3em] text-brand-gold"
+        >
+          Explore menu
+          <span className="block h-px w-8 bg-brand-gold transition-all duration-300 group-hover:w-12" />
+        </motion.a>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="max-w-lg"
-        >
-          <span className="inline-block rounded-full bg-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground">
-            Limited Time Offer
-          </span>
-          <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-card sm:text-5xl lg:text-6xl">
-            Get Your
-            <br />
-            <span className="text-brand-gold">Exclusive Deals</span>
-          </h1>
-          <p className="mt-4 text-lg text-card/80">
-            Fresh ingredients, bold flavors. Order now and enjoy Lahore&apos;s favourite sandwiches delivered to your door.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-primary-foreground shadow-lg transition-shadow hover:shadow-xl"
-            >
-              Order Now
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-full border-2 border-card/30 bg-card/10 px-8 py-3.5 text-sm font-bold text-card backdrop-blur-sm transition-colors hover:bg-card/20"
-            >
-              View Menu
-            </motion.button>
-          </div>
-        </motion.div>
-      </div>
+      {/* Hot badge — top right */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 1 }}
+        className="absolute right-9 top-9 z-[4] flex h-[68px] w-[68px] flex-col items-center justify-center rounded-full border border-brand-gold/50"
+        style={{ background: "hsl(20 30% 5% / 0.7)" }}
+      >
+        <span className="font-display text-[9px] uppercase tracking-[0.2em] leading-relaxed text-brand-gold">
+          Chef's
+          <br />
+          Pick
+        </span>
+      </motion.div>
+
+      {/* Bottom bar */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="banner-bottom-border absolute bottom-0 left-0 right-0 z-[4] flex h-[52px] items-center justify-between px-6 sm:px-14"
+      >
+        <span className="font-elegant text-[10px] uppercase tracking-[0.4em] text-brand-cream/40">
+          Est. Lahore
+        </span>
+        <div className="flex gap-1.5">
+          <span className="h-[5px] w-[5px] rounded-full bg-brand-gold" />
+          <span className="h-[5px] w-[5px] rounded-full bg-brand-gold/40" />
+          <span className="h-[5px] w-[5px] rounded-full bg-brand-gold/40" />
+          <span className="h-[5px] w-[5px] rounded-full bg-brand-gold/40" />
+        </div>
+        <span className="font-elegant text-[10px] uppercase tracking-[0.4em] text-brand-gold">
+          Order Now
+        </span>
+      </motion.div>
     </section>
   );
 };
