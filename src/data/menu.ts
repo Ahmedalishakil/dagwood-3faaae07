@@ -223,7 +223,7 @@ export const menuItems: MenuItem[] = [
     name: "Macchiato",
     description: "Espresso marked with a dash of milk",
     price: 530,
-    image: coffeeImg,
+    image: macchiatoImg,
     category: "Hot Coffee",
   },
 
