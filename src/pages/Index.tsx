@@ -8,6 +8,7 @@ import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 
 import SandwichCustomizer from "@/components/SandwichCustomizer";
+import SandySection from "@/components/SandySection";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { useCart } from "@/context/CartContext";
 
