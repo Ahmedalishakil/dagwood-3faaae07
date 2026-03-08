@@ -25,7 +25,7 @@ const slides = [
     headlineRed: "Sinfully",
     headlineWhite: "Rich",
     subtext: "Indulge in our velvety red velvet masterpiece",
-    objectPosition: "center 60%",
+    objectPosition: "center center",
   },
 ];
 
