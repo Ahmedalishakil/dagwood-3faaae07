@@ -23,6 +23,8 @@ const SandySection = () => {
             src={sandyAvatar}
             alt="Sandy"
             className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-cover sm:h-14 sm:w-14"
+            loading="lazy"
+            decoding="async"
           />
           <p className="flex-1 text-sm font-semibold text-primary-foreground sm:text-base">
             🥪 Order on WhatsApp — Sandy takes your order in seconds!
