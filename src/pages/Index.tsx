@@ -7,6 +7,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter, { categoryToId } from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
+import MenuCardSkeleton from "@/components/MenuCardSkeleton";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import SandySection from "@/components/SandySection";
 import { menuItems, categories, type MenuItem } from "@/data/menu";
@@ -15,6 +16,7 @@ import { useCart } from "@/context/CartContext";
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("All Items");
   const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { addToCart, cartCount, cartTotal } = useCart();
   const navigate = useNavigate();
 
@@ -72,10 +74,12 @@ const Index = () => {
 
     // Suppress scroll-spy for a moment while smooth-scrolling
     isScrollingToRef.current = true;
+    setIsTransitioning(true);
     clearTimeout(scrollTimeoutRef.current);
     scrollTimeoutRef.current = setTimeout(() => {
       isScrollingToRef.current = false;
-    }, 1000);
+      setIsTransitioning(false);
+    }, 600);
   }, []);
 
   const handleAddToCart = (item: MenuItem) => {
@@ -113,7 +117,9 @@ const Index = () => {
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <AnimatePresence mode="popLayout">
-                  {group.items.map((item) => (
+                  {isTransitioning && group.category === activeCategory 
+                    ? Array.from({ length: 4 }).map((_, i) => <MenuCardSkeleton key={`skeleton-${i}`} />)
+                    : group.items.map((item) => (
                     <MenuCard key={item.id} item={item} onAddToCart={handleAddToCart} />
                   ))}
                 </AnimatePresence>

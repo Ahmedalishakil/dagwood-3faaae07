@@ -45,6 +45,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
@@ -55,13 +56,15 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
           handleCardClick();
         }
       }}
-      className="group relative cursor-pointer overflow-hidden rounded-[20px] border-0 bg-secondary shadow-card outline-none transition-shadow hover:shadow-card-hover focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="group relative cursor-pointer overflow-hidden rounded-[20px] border-0 bg-secondary shadow-card outline-none transition-shadow hover:shadow-card-hover focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 touch-ripple"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={item.image}
           alt={item.name}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         {item.badge && (
