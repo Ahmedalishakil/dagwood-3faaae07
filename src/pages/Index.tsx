@@ -6,7 +6,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
-import DessertBanner from "@/components/DessertBanner";
+
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { useCart } from "@/context/CartContext";
