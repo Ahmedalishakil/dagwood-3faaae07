@@ -423,7 +423,7 @@ export const menuItems: MenuItem[] = [
     name: "Large Fries",
     description: "Extra large portion of golden fries",
     price: 500,
-    image: friesImg,
+    image: largeFriesImg,
     category: "Sides",
   },
 ];
