@@ -123,15 +123,15 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="relative overflow-hidden">
+      <footer className="relative">
         <SandySection />
-        <div className="relative">
+        <div className="relative py-6">
           <img
             src={lahoreSkyline}
             alt="Lahore Skyline"
-            className="pointer-events-none w-full max-h-36 opacity-100 object-cover object-top"
+            className="pointer-events-none mx-auto w-full max-w-5xl object-contain px-4"
           />
-          <p className="absolute inset-x-0 bottom-2 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
+          <p className="mt-2 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
         </div>
       </footer>
 
