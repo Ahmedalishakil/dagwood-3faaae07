@@ -2,6 +2,8 @@ import cocktailImg from "@/assets/menu/cocktail.jpg";
 import cheeseLoverImg from "@/assets/menu/cheese-lover.jpg";
 import steakImg from "@/assets/menu/steak.jpg";
 import comboImg from "@/assets/menu/combo.jpg";
+import combo1Img from "@/assets/menu/combo1.jpg";
+import combo2Img from "@/assets/menu/combo2.jpg";
 import specialDrinksImg from "@/assets/menu/special-drinks.jpg";
 import shakeImg from "@/assets/menu/shake.jpg";
 import coffeeImg from "@/assets/menu/coffee.jpg";
