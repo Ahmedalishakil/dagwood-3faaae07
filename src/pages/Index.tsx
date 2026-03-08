@@ -62,8 +62,8 @@ const Index = () => {
 
       <SandySection />
 
-      <footer className="border-t border-border bg-card">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      <footer className="relative border-t border-border bg-card overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 relative z-10">
           <div className="flex flex-col items-center gap-4 text-center">
             <h3 className="font-display text-xl font-bold text-foreground">DAGWOOD</h3>
             <p className="max-w-md text-sm text-muted-foreground">
@@ -76,6 +76,11 @@ const Index = () => {
             <p className="text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
           </div>
         </div>
+        <img
+          src={lahoreSkyline}
+          alt="Lahore Skyline"
+          className="pointer-events-none w-full opacity-10 object-cover object-top"
+        />
       </footer>
 
       {cartCount > 0 && (
