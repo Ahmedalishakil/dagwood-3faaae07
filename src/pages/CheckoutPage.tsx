@@ -25,6 +25,7 @@ const CheckoutPage = () => {
 
   const [address, setAddress] = useState("");
   const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("vertical");
+  const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
   const [orderPlaced, setOrderPlaced] = useState(false);
