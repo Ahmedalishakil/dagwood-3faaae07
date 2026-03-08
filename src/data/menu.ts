@@ -107,7 +107,7 @@ export const menuItems: MenuItem[] = [
     name: "Peachy Paradise",
     description: "Sweet peach refresher with tropical notes",
     price: 700,
-    image: specialDrinksImg,
+    image: peachyParadiseImg,
     category: "Special Drinks",
   },
   {
