@@ -166,7 +166,7 @@ export const menuItems: MenuItem[] = [
     name: "Americano",
     description: "Classic espresso with hot water",
     price: 450,
-    image: coffeeImg,
+    image: americanoImg,
     category: "Hot Coffee",
   },
   {
