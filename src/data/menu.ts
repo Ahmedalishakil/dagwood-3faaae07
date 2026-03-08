@@ -32,6 +32,10 @@ import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
 import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
 import strawberryMintImg from "@/assets/menu/strawberry-mint.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
+import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
+import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
+import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
+import butterCroissantImg from "@/assets/menu/butter-croissant.jpg";
 
 export type MenuItem = {
   id: string;
@@ -321,7 +325,7 @@ export const menuItems: MenuItem[] = [
     name: "Milk Chocolate Cookie",
     description: "Chunky milk chocolate chip cookie",
     price: 330,
-    image: cookiesImg,
+    image: milkChocCookieImg,
     category: "Cookies & Croissants",
   },
   {
@@ -329,7 +333,7 @@ export const menuItems: MenuItem[] = [
     name: "Double Chocolate Cookie",
     description: "Double chocolate loaded cookie",
     price: 330,
-    image: cookiesImg,
+    image: doubleChocCookieImg,
     category: "Cookies & Croissants",
   },
   {
@@ -337,7 +341,7 @@ export const menuItems: MenuItem[] = [
     name: "Raspberry Cookie",
     description: "White chocolate & raspberry cookie",
     price: 330,
-    image: cookiesImg,
+    image: raspberryCookieImg,
     category: "Cookies & Croissants",
   },
   {
@@ -345,7 +349,7 @@ export const menuItems: MenuItem[] = [
     name: "Butter Croissant",
     description: "Flaky, golden butter croissant",
     price: 330,
-    image: cookiesImg,
+    image: butterCroissantImg,
     category: "Cookies & Croissants",
   },
 
