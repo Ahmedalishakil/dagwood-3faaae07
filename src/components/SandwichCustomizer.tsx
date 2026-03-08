@@ -158,24 +158,44 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
                   Bread Type <span className="text-primary">*</span>
                 </h4>
                 <div className="grid grid-cols-2 gap-3">
-                  {(["white", "brown"] as const).map((type) => (
-                    <button
-                      key={type}
-                      onClick={() =>
-                        setCustomization((prev) => ({ ...prev, breadType: type }))
-                      }
-                      className={`flex flex-col items-center gap-2 rounded-2xl border-2 p-4 transition-all ${
-                        customization.breadType === type
-                          ? "border-primary bg-primary/5 shadow-md"
-                          : "border-border hover:border-muted-foreground/30"
-                      }`}
-                    >
-                      <span className="text-2xl">{type === "white" ? "🍞" : "🥖"}</span>
-                      <span className="text-sm font-semibold text-card-foreground">
-                        {type === "white" ? "White Bread" : "Brown Bread"}
-                      </span>
-                    </button>
-                  ))}
+                  {(["white", "brown"] as const).map((type) => {
+                    const fill = type === "white" ? "#F5E6C8" : "#A0724A";
+                    const stroke = type === "white" ? "#D4B896" : "#7A5533";
+                    return (
+                      <button
+                        key={type}
+                        onClick={() =>
+                          setCustomization((prev) => ({ ...prev, breadType: type }))
+                        }
+                        className={`flex flex-col items-center gap-2 rounded-2xl border-2 p-4 transition-all ${
+                          customization.breadType === type
+                            ? "border-primary bg-primary/5 shadow-md"
+                            : "border-border hover:border-muted-foreground/30"
+                        }`}
+                      >
+                        {/* Flat sandwich bread slice SVG */}
+                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M6 26V14C6 9.58 10.48 6 18 6C25.52 6 30 9.58 30 14V26C30 27.1 29.1 28 28 28H8C6.9 28 6 27.1 6 26Z"
+                            fill={fill}
+                            stroke={stroke}
+                            strokeWidth="1.5"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M6 22H30"
+                            stroke={stroke}
+                            strokeWidth="1"
+                            strokeLinecap="round"
+                            opacity="0.4"
+                          />
+                        </svg>
+                        <span className="text-sm font-semibold text-card-foreground">
+                          {type === "white" ? "White Bread" : "Brown Bread"}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </section>
 
