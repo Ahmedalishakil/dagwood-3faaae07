@@ -417,19 +417,15 @@ export const menuItems: MenuItem[] = [
 
   // === SIDES ===
   {
-    id: "regular-fries",
-    name: "Regular Fries",
-    description: "Golden crispy french fries",
+    id: "fries",
+    name: "Fries",
+    description: "Golden crispy french fries — choose your size",
     price: 350,
-    image: regularFriesImg,
-    category: "Sides",
-  },
-  {
-    id: "large-fries",
-    name: "Large Fries",
-    description: "Extra large portion of golden fries",
-    price: 500,
     image: largeFriesImg,
     category: "Sides",
+    sizes: [
+      { label: "Regular", price: 350 },
+      { label: "Large", price: 500 },
+    ],
   },
 ];
