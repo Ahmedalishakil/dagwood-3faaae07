@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Plus, Minus, Trash2, X } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Trash2, X, Sparkles } from "lucide-react";
 import type { CartItem } from "@/types/cart";
+import { menuItems, type MenuItem } from "@/data/menu";
 
 type Props = {
   items: CartItem[];
@@ -8,6 +10,24 @@ type Props = {
   onClose: () => void;
   onUpdateQuantity: (id: string, delta: number) => void;
   onRemoveItem: (id: string) => void;
+  onQuickAdd: (item: MenuItem) => void;
+};
+
+const UPSELL_CATEGORIES = ["Special Drinks", "Shakes", "Divine Cakes", "Sundaes", "Brownies", "Donuts", "Cookies & Croissants", "Sides"];
+
+const CATEGORY_PAIRING: Record<string, string[]> = {
+  Sandwiches: ["Shakes", "Special Drinks", "Sides"],
+  Combos: ["Shakes", "Special Drinks", "Sundaes"],
+  "Hot Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants", "Donuts"],
+  "Cold Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants"],
+  Shakes: ["Sandwiches", "Brownies", "Cookies & Croissants"],
+  "Special Drinks": ["Sandwiches", "Divine Cakes"],
+  "Divine Cakes": ["Hot Coffee", "Cold Coffee"],
+  Sundaes: ["Hot Coffee"],
+  Brownies: ["Hot Coffee", "Cold Coffee"],
+  Donuts: ["Hot Coffee", "Cold Coffee"],
+  "Cookies & Croissants": ["Hot Coffee", "Cold Coffee"],
+  Sides: ["Shakes", "Special Drinks"],
 };
 
 const formatCustomization = (item: CartItem): string | null => {
@@ -22,11 +42,47 @@ const formatCustomization = (item: CartItem): string | null => {
   return parts.join(", ");
 };
 
-const CartSidebar = ({ items, isOpen, onClose, onUpdateQuantity, onRemoveItem }: Props) => {
+const CartSidebar = ({ items, isOpen, onClose, onUpdateQuantity, onRemoveItem, onQuickAdd }: Props) => {
   const subtotal = items.reduce((sum, item) => sum + (item.price + (item.extrasTotal || 0)) * item.quantity, 0);
   const gst = Math.round(subtotal * 0.16);
   const delivery = subtotal > 0 ? 150 : 0;
   const total = subtotal + gst + delivery;
+
+  const upsellItems = useMemo(() => {
+    if (items.length === 0) return [];
+
+    // Get categories in cart (strip unique id suffixes for sandwiches)
+    const cartBaseIds = new Set(items.map((i) => i.id.replace(/-\d+$/, "")));
+    const cartCategories = new Set(
+      items
+        .map((i) => {
+          const baseId = i.id.replace(/-\d+$/, "");
+          return menuItems.find((m) => m.id === baseId)?.category;
+        })
+        .filter(Boolean) as string[]
+    );
+
+    // Build prioritized suggestion categories
+    const suggestedCats = new Set<string>();
+    cartCategories.forEach((cat) => {
+      const pairings = CATEGORY_PAIRING[cat];
+      if (pairings) pairings.forEach((p) => suggestedCats.add(p));
+    });
+
+    // If no pairings found, fallback to upsell categories
+    if (suggestedCats.size === 0) {
+      UPSELL_CATEGORIES.forEach((c) => suggestedCats.add(c));
+    }
+
+    // Filter menu items: not already in cart, from suggested categories
+    const candidates = menuItems.filter(
+      (m) => suggestedCats.has(m.category) && !cartBaseIds.has(m.id)
+    );
+
+    // Shuffle and pick up to 4
+    const shuffled = [...candidates].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 4);
+  }, [items]);
 
   return (
     <AnimatePresence>
@@ -117,6 +173,42 @@ const CartSidebar = ({ items, isOpen, onClose, onUpdateQuantity, onRemoveItem }:
                       </motion.div>
                     );
                   })}
+
+                  {/* Upsell Suggestions */}
+                  {upsellItems.length > 0 && (
+                    <div className="mt-2 pt-4 border-t border-border">
+                      <div className="flex items-center gap-1.5 mb-3">
+                        <Sparkles className="h-4 w-4 text-accent" />
+                        <h4 className="text-sm font-bold text-card-foreground">Complete Your Meal</h4>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {upsellItems.map((upsell) => (
+                          <motion.button
+                            key={upsell.id}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => onQuickAdd(upsell)}
+                            className="flex flex-col overflow-hidden rounded-xl border border-border bg-background transition-shadow hover:shadow-card-hover"
+                          >
+                            <div className="relative aspect-[3/2] w-full overflow-hidden">
+                              <img
+                                src={upsell.image}
+                                alt={upsell.name}
+                                className="h-full w-full object-cover"
+                              />
+                              <span className="absolute bottom-1.5 right-1.5 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow">
+                                + Add
+                              </span>
+                            </div>
+                            <div className="px-2.5 py-2 text-left">
+                              <p className="text-xs font-semibold text-card-foreground leading-tight line-clamp-1">{upsell.name}</p>
+                              <p className="mt-0.5 text-xs font-bold text-primary">Rs. {upsell.price.toLocaleString()}</p>
+                            </div>
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
