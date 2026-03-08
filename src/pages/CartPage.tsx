@@ -133,37 +133,8 @@ const CartPage = () => {
               </AnimatePresence>
             </div>
 
-            {/* Upsell */}
-            {upsellItems.length > 0 && (
-              <div className="mt-8">
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="h-5 w-5 text-accent" />
-                  <h3 className="font-display text-lg font-bold text-foreground">Complete Your Meal</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {upsellItems.map((upsell) => (
-                    <motion.button
-                      key={upsell.id}
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => addToCart(upsell)}
-                      className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-card-hover"
-                    >
-                      <div className="relative aspect-[3/2] w-full overflow-hidden">
-                        <img src={upsell.image} alt={upsell.name} className="h-full w-full object-cover" />
-                        <span className="absolute bottom-1.5 right-1.5 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow">
-                          + Add
-                        </span>
-                      </div>
-                      <div className="px-2.5 py-2 text-left">
-                        <p className="text-xs font-semibold text-card-foreground leading-tight line-clamp-1">{upsell.name}</p>
-                        <p className="mt-0.5 text-xs font-bold text-primary">Rs. {upsell.price.toLocaleString()}</p>
-                      </div>
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Smart Upsell */}
+            <SmartUpsell />
 
             {/* Summary (sticky on mobile) */}
             <div className="mt-8 rounded-2xl border border-border bg-card p-6">
