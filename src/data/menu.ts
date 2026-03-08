@@ -116,7 +116,7 @@ export const menuItems: MenuItem[] = [
     name: "Combo 2",
     description: "6 Chicken Strips, Fries & a Drink",
     price: 900,
-    image: comboImg,
+    image: combo2Img,
     category: "Combos",
     badge: "Value",
   },
