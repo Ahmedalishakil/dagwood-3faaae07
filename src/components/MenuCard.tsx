@@ -45,6 +45,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
