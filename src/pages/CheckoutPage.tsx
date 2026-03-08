@@ -242,7 +242,7 @@ const CheckoutPage = () => {
                       >
                         <MapPin className="h-5 w-5 text-primary" />
                         <span className="text-sm font-bold text-card-foreground">Vertical</span>
-                        <span className="text-[11px] text-muted-foreground text-center">M.M. Alam Road</span>
+                        <span className="text-[11px] text-muted-foreground text-center">94 Pine Ave, Block B, Khayaban E Amin</span>
                       </button>
                       <button
                         type="button"
