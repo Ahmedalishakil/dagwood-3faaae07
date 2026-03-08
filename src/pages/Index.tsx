@@ -52,6 +52,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <DagwoodHeader orderType={orderType} onOrderTypeChange={setOrderType} />
       <HeroBanner />
+      <DessertBanner />
 
       {/* Menu Section */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
