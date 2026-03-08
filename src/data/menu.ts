@@ -325,7 +325,7 @@ export const menuItems: MenuItem[] = [
     name: "Milk Chocolate Cookie",
     description: "Chunky milk chocolate chip cookie",
     price: 330,
-    image: cookiesImg,
+    image: milkChocCookieImg,
     category: "Cookies & Croissants",
   },
   {
@@ -333,7 +333,7 @@ export const menuItems: MenuItem[] = [
     name: "Double Chocolate Cookie",
     description: "Double chocolate loaded cookie",
     price: 330,
-    image: cookiesImg,
+    image: doubleChocCookieImg,
     category: "Cookies & Croissants",
   },
   {
@@ -341,7 +341,7 @@ export const menuItems: MenuItem[] = [
     name: "Raspberry Cookie",
     description: "White chocolate & raspberry cookie",
     price: 330,
-    image: cookiesImg,
+    image: raspberryCookieImg,
     category: "Cookies & Croissants",
   },
   {
@@ -349,7 +349,7 @@ export const menuItems: MenuItem[] = [
     name: "Butter Croissant",
     description: "Flaky, golden butter croissant",
     price: 330,
-    image: cookiesImg,
+    image: butterCroissantImg,
     category: "Cookies & Croissants",
   },
 
