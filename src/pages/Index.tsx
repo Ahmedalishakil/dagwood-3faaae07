@@ -74,10 +74,12 @@ const Index = () => {
 
     // Suppress scroll-spy for a moment while smooth-scrolling
     isScrollingToRef.current = true;
+    setIsTransitioning(true);
     clearTimeout(scrollTimeoutRef.current);
     scrollTimeoutRef.current = setTimeout(() => {
       isScrollingToRef.current = false;
-    }, 1000);
+      setIsTransitioning(false);
+    }, 600);
   }, []);
 
   const handleAddToCart = (item: MenuItem) => {
