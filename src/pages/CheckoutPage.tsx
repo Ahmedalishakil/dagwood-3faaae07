@@ -94,7 +94,7 @@ const CheckoutPage = () => {
               </div>
               <div className="flex justify-between border-t border-border pt-3">
                 <span className="text-muted-foreground">Total Paid</span>
-                <span className="text-lg font-bold text-primary">Rs. {total.toLocaleString()}</span>
+                <span className="text-lg font-bold text-primary">Rs. {orderTotal.toLocaleString()}</span>
               </div>
             </div>
           </div>
