@@ -309,7 +309,7 @@ export const menuItems: MenuItem[] = [
     name: "Chocolate Fudge Donut",
     description: "Glazed donut with rich chocolate fudge topping",
     price: 320,
-    image: donutImg,
+    image: chocFudgeDonutImg,
     category: "Donuts",
   },
   {
