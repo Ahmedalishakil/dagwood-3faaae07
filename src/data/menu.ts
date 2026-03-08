@@ -22,6 +22,8 @@ import cakeImg from "@/assets/menu/cake.jpg";
 import pistachioCakeImg from "@/assets/menu/pistachio-cake.jpg";
 import cheesecakeImg from "@/assets/menu/cheesecake.jpg";
 import donutImg from "@/assets/menu/donut.jpg";
+import chocFudgeDonutImg from "@/assets/menu/chocolate-fudge-donut.jpg";
+import caramelDonutImg from "@/assets/menu/caramel-donut.jpg";
 import cookiesImg from "@/assets/menu/cookies.jpg";
 import brownieImg from "@/assets/menu/brownie.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
@@ -307,7 +309,7 @@ export const menuItems: MenuItem[] = [
     name: "Chocolate Fudge Donut",
     description: "Glazed donut with rich chocolate fudge topping",
     price: 320,
-    image: donutImg,
+    image: chocFudgeDonutImg,
     category: "Donuts",
   },
   {
@@ -315,7 +317,7 @@ export const menuItems: MenuItem[] = [
     name: "Creamy Caramel Donut",
     description: "Soft donut with caramel cream filling",
     price: 320,
-    image: donutImg,
+    image: caramelDonutImg,
     category: "Donuts",
   },
 
