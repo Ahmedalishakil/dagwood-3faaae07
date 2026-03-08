@@ -20,9 +20,9 @@ const formatCustomization = (item: CartItem): string | null => {
 };
 
 const CartPage = () => {
-  const { cart, cartCount, cartTotal, updateQuantity, removeItem, addToCart } = useCart();
+  const { cart, cartCount, cartTotal, updateQuantity, removeItem, addToCart, orderType } = useCart();
   const navigate = useNavigate();
-  const deliveryFee = 200;
+  const deliveryFee = orderType === "delivery" ? 200 : 0;
 
   return (
     <div className="min-h-screen bg-background">
