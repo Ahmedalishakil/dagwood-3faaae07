@@ -101,7 +101,7 @@ export const menuItems: MenuItem[] = [
     name: "Strawberry Mint",
     description: "Fresh strawberry blended with cool mint",
     price: 700,
-    image: specialDrinksImg,
+    image: strawberryMintImg,
     category: "Special Drinks",
   },
   {
