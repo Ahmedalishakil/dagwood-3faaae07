@@ -125,13 +125,13 @@ const Index = () => {
 
       <footer className="relative">
         <SandySection />
-        <div className="relative -mt-2 pb-4">
+        <div className="relative -mt-6 pb-2">
           <img
             src={lahoreSkyline}
             alt="Lahore Skyline"
-            className="pointer-events-none mx-auto w-full max-w-5xl object-contain px-4"
+            className="pointer-events-none mx-auto block w-full max-w-5xl object-contain px-4"
           />
-          <p className="mt-2 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
+          <p className="mt-1 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
         </div>
       </footer>
 

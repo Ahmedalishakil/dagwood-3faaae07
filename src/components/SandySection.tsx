@@ -16,7 +16,7 @@ const SandySection = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mx-auto max-w-7xl px-4 py-6 sm:px-6"
+        className="mx-auto max-w-7xl px-4 pb-2 pt-4 sm:px-6"
       >
         <div className="flex items-center gap-4 rounded-2xl bg-primary px-5 py-3 shadow-lg transition-all hover:shadow-xl hover:brightness-110 sm:gap-5 sm:px-6">
           <img
