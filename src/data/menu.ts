@@ -199,7 +199,7 @@ export const menuItems: MenuItem[] = [
     name: "Mocha",
     description: "Espresso, chocolate & steamed milk",
     price: 750,
-    image: coffeeImg,
+    image: mochaImg,
     category: "Hot Coffee",
   },
   {
