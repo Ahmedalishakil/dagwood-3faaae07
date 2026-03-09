@@ -21,7 +21,7 @@ const SandySection = () => {
         <div className="flex items-center gap-4 rounded-2xl bg-primary px-5 py-3 shadow-lg transition-all hover:shadow-xl hover:brightness-110 sm:gap-5 sm:px-6">
           <img
             src={sandyAvatar}
-            alt="Sandy"
+            alt="Sandy AI"
             className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-cover sm:h-14 sm:w-14"
             loading="lazy"
             decoding="async"
