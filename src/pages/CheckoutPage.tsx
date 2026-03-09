@@ -79,16 +79,23 @@ const CheckoutPage = () => {
     // Build API payload
     const customerIdStr = `${customerName.trim()}/+${phone.replace(/\D/g, "")}`;
 
+    // Lookup map for removal item_codes
+    const REMOVAL_CODES: Record<string, string> = {
+      "Without Veggies": "TP-00001",
+      "Without Jalapenos": "TP-00002",
+      "Without Olives": "TP-00003",
+      "Without Tomatoes": "TP-00004",
+      "Without Iceberg": "TP-00005",
+      "Without Onions": "TP-00006",
+      "Without Mushrooms": "TP-00007",
+      "Extra Saucy": "TP-00008",
+      "No Sauce": "TP-00009",
+      "Without Mayo": "TP-00010",
+      "Without\u00a0Cheese": "TP-00011",
+    };
+
     const orderItems = cart.map((item) => {
       const itemCode = item.item_code || item.id;
-      const description = item.customization
-        ? [
-            item.customization.breadType === "brown" ? "Brown Bread" : "White Bread",
-            ...item.customization.removals,
-            ...item.customization.preferences,
-            item.customization.specialNote,
-          ].filter(Boolean).join(", ")
-        : "";
 
       // First addon is always the item itself
       const addons: { item_code: string; item_name: string; item_group: string; qty: number; rate: number }[] = [
@@ -101,12 +108,11 @@ const CheckoutPage = () => {
         },
       ];
 
-      // Then customization extras (removals as rate 0, paid extras with rate)
+      // Then customization: removals (with real item_codes, rate 0) and paid extras
       if (item.customization) {
         item.customization.removals.forEach((r) => {
-          const matched = item.customization!.extras.find((e) => e.name === r);
           addons.push({
-            item_code: matched?.item_code || "",
+            item_code: REMOVAL_CODES[r] || "",
             item_name: r,
             item_group: "Extra Topping",
             qty: 1,
@@ -128,11 +134,13 @@ const CheckoutPage = () => {
         item: {
           item_code: itemCode,
           item_name: item.name,
-          description,
+          description: item.customization
+            ? `${item.customization.breadType === "brown" ? "Brown Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map(e => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
+            : "",
           rate: item.price,
           currency: "PKR",
           qty: item.quantity,
-          netTotal: (item.price + (item.extrasTotal || 0)) * item.quantity,
+          netTotal: item.price * item.quantity,
         },
         has_addons: addons.length > 1 ? 1 : 0,
         addons,
