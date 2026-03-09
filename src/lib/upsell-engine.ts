@@ -2,9 +2,9 @@ import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 
 // Category groupings for detection
-const DESSERT_CATEGORIES = ["Sundaes", "Divine Cakes", "Brownies", "Donuts", "Cookies & Croissants"];
-const DRINK_CATEGORIES = ["Hot Coffee", "Cold Coffee", "Shakes", "Special Drinks"];
-const SAVORY_CATEGORIES = ["Sandwiches", "Combos", "Sides"];
+const DESSERT_CATEGORIES = ["Sundaes", "Divine Cakes", "Brownies", "Donuts Delights", "Cookies & Croissants"];
+const DRINK_CATEGORIES = ["Hot Beverages", "Cold Beverages", "Shakes", "Special Drinks", "Regular Drinks"];
+const SAVORY_CATEGORIES = ["Sandwiches", "Combos", "Fries", "Sides"];
 
 type CartProfile = {
   hasDessert: boolean;
