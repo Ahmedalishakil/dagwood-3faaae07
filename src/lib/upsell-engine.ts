@@ -2,9 +2,9 @@ import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 
 // Category groupings for detection
-const DESSERT_CATEGORIES = ["Sundaes", "Divine Cakes", "Brownies", "Donuts", "Cookies & Croissants"];
-const DRINK_CATEGORIES = ["Hot Coffee", "Cold Coffee", "Shakes", "Special Drinks"];
-const SAVORY_CATEGORIES = ["Sandwiches", "Combos", "Sides"];
+const DESSERT_CATEGORIES = ["Sundaes", "Divine Cakes", "Brownies", "Donuts Delights", "Cookies & Croissants"];
+const DRINK_CATEGORIES = ["Hot Beverages", "Cold Beverages", "Shakes", "Special Drinks", "Regular Drinks"];
+const SAVORY_CATEGORIES = ["Sandwiches", "Combos", "Fries", "Sides"];
 
 type CartProfile = {
   hasDessert: boolean;
@@ -35,8 +35,8 @@ function getCartProfile(cart: CartItem[]): CartProfile {
   return {
     hasDessert: DESSERT_CATEGORIES.some((c) => categories.has(c)),
     hasSundae: categories.has("Sundaes"),
-    hasCoffee: categories.has("Hot Coffee"),
-    hasColdDrink: categories.has("Cold Coffee"),
+    hasCoffee: categories.has("Hot Beverages"),
+    hasColdDrink: categories.has("Cold Beverages"),
     hasShake: categories.has("Shakes"),
     hasSandwich: categories.has("Sandwiches"),
     hasCombo: categories.has("Combos"),
@@ -61,7 +61,7 @@ const DESSERT_PAIRINGS = [
 
 const SANDWICH_PAIRINGS = [
   "dark-temptation", "strawberry-vanilla-shake", "berry-blast",
-  "strawberry-mint", "peachy-paradise", "fries",
+  "strawberry-mint", "peachy-paradise", "regular-fries",
   "iced-americano", "iced-latte",
 ];
 
@@ -81,7 +81,7 @@ const COFFEE_PAIRINGS = [
 const SHAKE_PAIRINGS = [
   "dark-temptation", "berry-blast", "strawberry-vanilla-shake",
   "chocolate-fudge-donut", "milk-chocolate-cookie",
-  "walnut-chocolate-brownie", "boston-creamy-brownie",
+  "walnut-chocolate-brownie", "boston-creamy-donut",
 ];
 
 const BESTSELLERS = [

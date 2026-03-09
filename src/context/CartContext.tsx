@@ -44,6 +44,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           ...prev,
           {
             id: uniqueId,
+            item_code: item.item_code,
             name: item.name,
             price: item.price,
             quantity: 1,
@@ -57,7 +58,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existing) {
         return prev.map((c) => (c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c));
       }
-      return [...prev, { id: item.id, name: item.name, price: item.price, quantity: 1, image: item.image }];
+      return [...prev, {
+        id: item.id,
+        item_code: item.item_code,
+        name: item.name,
+        price: item.price,
+        quantity: 1,
+        image: item.image,
+      }];
     });
     toast.success(`${item.name} added to cart!`, {
       description: customization ? "With your customizations" : undefined,

@@ -11,45 +11,35 @@ type Props = {
   onAddToCart: (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => void;
 };
 
-const DEFAULT_REMOVALS = [
-  "No Onion",
-  "No Lettuce",
-  "No Tomato",
-  "No Jalapenos",
-  "No Sauce",
+// Real addons from menu.json — Special Instructions (free toppings)
+const REMOVALS = [
+  { name: "Without Veggies", item_code: "TP-00001" },
+  { name: "Without Jalapenos", item_code: "TP-00002" },
+  { name: "Without Olives", item_code: "TP-00003" },
+  { name: "Without Tomatoes", item_code: "TP-00004" },
+  { name: "Without Iceberg", item_code: "TP-00005" },
+  { name: "Without Onions", item_code: "TP-00006" },
+  { name: "Without Mushrooms", item_code: "TP-00007" },
+  { name: "Extra Saucy", item_code: "TP-00008" },
+  { name: "No Sauce", item_code: "TP-00009" },
+  { name: "Without Mayo", item_code: "TP-00010" },
+  { name: "Without\u00a0Cheese", item_code: "TP-00011" },
 ];
 
-const DEFAULT_EXTRAS = [
-  { name: "Extra Mayo", price: 50 },
-  { name: "Extra Cheese", price: 100 },
-  { name: "Extra Meat/Fillet", price: 200 },
-  { name: "Extra Tomato Ketchup", price: 20 },
-  { name: "Extra Chilli Garlic", price: 20 },
+// Real addons from menu.json — paid Add-Ons
+const EXTRAS = [
+  { name: "Extra Mayo", price: 80, item_code: "SD-00028" },
+  { name: "Extra Chicken", price: 120, item_code: "SD-00030" },
+  { name: "Cheese Sauce", price: 100, item_code: "SD-00022" },
+  { name: "Extra Jalapenos", price: 80, item_code: "SD-00027" },
+  { name: "Extra Olives", price: 80, item_code: "SD-00024" },
+  { name: "Extra Mushrooms", price: 80, item_code: "SD-00026" },
+  { name: "Extra Veggies", price: 80, item_code: "SD-00025" },
+  { name: "Dynamite Sauce", price: 90, item_code: "SD-00021" },
+  { name: "Bran Bread", price: 80, item_code: "SD-00023" },
 ];
 
-const SANDWICH_OPTIONS: Record<string, { removals: string[]; extras: { name: string; price: number }[] }> = {
-  "cheese-lover": {
-    removals: [
-      "No Onion",
-      "No Lettuce",
-      "No Tomato",
-      "No Mushrooms",
-      "No Sauce",
-    ],
-    extras: [
-      { name: "Extra Mayo", price: 50 },
-      { name: "Extra Cheese", price: 100 },
-      { name: "Extra Meat/Fillet", price: 200 },
-      { name: "Extra Mushrooms", price: 100 },
-      { name: "Extra Tomato Ketchup", price: 20 },
-      { name: "Extra Chilli Garlic", price: 20 },
-    ],
-  },
-};
-
-const PREFERENCES = [
-  "Cut 1/4",
-];
+const PREFERENCES = ["Cut 1/4"];
 
 const defaultState: SandwichCustomization = {
   breadType: "white",
@@ -60,7 +50,6 @@ const defaultState: SandwichCustomization = {
 };
 
 const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
-  const { removals: REMOVALS, extras: EXTRAS } = SANDWICH_OPTIONS[item.id] ?? { removals: DEFAULT_REMOVALS, extras: DEFAULT_EXTRAS };
   const [customization, setCustomization] = useState<SandwichCustomization>({ ...defaultState });
 
   const extrasTotal = useMemo(
@@ -88,7 +77,7 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
     }));
   };
 
-  const toggleExtra = (extra: { name: string; price: number }) => {
+  const toggleExtra = (extra: { name: string; price: number; item_code: string }) => {
     setCustomization((prev) => ({
       ...prev,
       extras: prev.extras.find((e) => e.name === extra.name)
@@ -190,7 +179,6 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
                             : "border-border hover:border-muted-foreground/30"
                         }`}
                       >
-                        {/* Flat sandwich bread slice SVG */}
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M6 26V14C6 9.58 10.48 6 18 6C25.52 6 30 9.58 30 14V26C30 27.1 29.1 28 28 28H8C6.9 28 6 27.1 6 26Z"
@@ -199,13 +187,7 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
                             strokeWidth="1.5"
                             strokeLinejoin="round"
                           />
-                          <path
-                            d="M6 22H30"
-                            stroke={stroke}
-                            strokeWidth="1"
-                            strokeLinecap="round"
-                            opacity="0.4"
-                          />
+                          <path d="M6 22H30" stroke={stroke} strokeWidth="1" strokeLinecap="round" opacity="0.4" />
                         </svg>
                         <span className="text-sm font-semibold text-card-foreground">
                           {type === "white" ? "White Bread" : "Brown Bread"}
@@ -216,42 +198,42 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
                 </div>
               </section>
 
-              {/* Removals */}
+              {/* Special Instructions (free removals/modifications) */}
               <section>
                 <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
-                  Removals
+                  Special Instructions
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {REMOVALS.map((r) => {
-                    const active = customization.removals.includes(r);
+                    const active = customization.removals.includes(r.name);
                     return (
                       <button
-                        key={r}
-                        onClick={() => toggleRemoval(r)}
+                        key={r.item_code}
+                        onClick={() => toggleRemoval(r.name)}
                         className={`rounded-full border px-4 py-2.5 text-sm font-medium transition-all ${
                           active
                             ? "border-destructive bg-destructive/10 text-destructive"
                             : "border-border text-card-foreground hover:bg-secondary"
                         }`}
                       >
-                        {r}
+                        {r.name}
                       </button>
                     );
                   })}
                 </div>
               </section>
 
-              {/* Extras */}
+              {/* Paid Add-Ons */}
               <section>
                 <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
-                  Add Extras
+                  Add-Ons
                 </h4>
                 <div className="space-y-2">
                   {EXTRAS.map((extra) => {
                     const active = !!customization.extras.find((e) => e.name === extra.name);
                     return (
                       <button
-                        key={extra.name}
+                        key={extra.item_code}
                         onClick={() => toggleExtra(extra)}
                         className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-all ${
                           active
@@ -262,12 +244,8 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
                         <span className="text-sm font-medium text-card-foreground">
                           {extra.name}
                         </span>
-                        <span
-                          className={`text-sm font-semibold ${
-                            extra.price > 0 ? "text-primary" : "text-muted-foreground"
-                          }`}
-                        >
-                          {extra.price > 0 ? `+ Rs. ${extra.price}` : "Free"}
+                        <span className="text-sm font-semibold text-primary">
+                          + Rs. {extra.price}
                         </span>
                       </button>
                     );
@@ -325,7 +303,7 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
               </div>
               {extrasTotal > 0 && (
                 <div className="mb-3 flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Extras</span>
+                  <span className="text-muted-foreground">Add-Ons</span>
                   <span className="font-semibold text-primary">+ Rs. {extrasTotal.toLocaleString()}</span>
                 </div>
               )}
