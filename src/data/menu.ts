@@ -1,7 +1,6 @@
 import cocktailImg from "@/assets/menu/cocktail.jpg";
 import cheeseLoverImg from "@/assets/menu/cheese-lover.jpg";
 import steakImg from "@/assets/menu/steak.jpg";
-import comboImg from "@/assets/menu/combo.jpg";
 import combo1Img from "@/assets/menu/combo1.jpg";
 import combo2Img from "@/assets/menu/combo2.jpg";
 import specialDrinksImg from "@/assets/menu/special-drinks.jpg";
@@ -23,29 +22,24 @@ import icedCaramelLatteImg from "@/assets/menu/iced-caramel-latte.jpg";
 import cakeImg from "@/assets/menu/cake.jpg";
 import pistachioCakeImg from "@/assets/menu/pistachio-cake.jpg";
 import cheesecakeImg from "@/assets/menu/cheesecake.jpg";
-import donutImg from "@/assets/menu/donut.jpg";
 import chocFudgeDonutImg from "@/assets/menu/chocolate-fudge-donut.jpg";
 import caramelDonutImg from "@/assets/menu/caramel-donut.jpg";
-import cookiesImg from "@/assets/menu/cookies.jpg";
-import brownieImg from "@/assets/menu/brownie.jpg";
+import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
+import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
+import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
+import butterCroissantImg from "@/assets/menu/butter-croissant.jpg";
 import walnutBrownieImg from "@/assets/menu/walnut-brownie.jpg";
 import caramelAlmondBrownieImg from "@/assets/menu/caramel-almond-brownie.jpg";
 import bostonBrownieImg from "@/assets/menu/boston-brownie.jpg";
+import threeMilkSundaeImg from "@/assets/menu/three-milk-sundae.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
+import largeFriesImg from "@/assets/menu/large-fries.jpg";
 import darkTemptationImg from "@/assets/menu/dark-temptation.png";
 import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
 import berryBlastImg from "@/assets/menu/berry-blast.png";
 import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
 import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
 import strawberryMintImg from "@/assets/menu/strawberry-mint.png";
-import threeMilkSundaeImg from "@/assets/menu/three-milk-sundae.jpg";
-import regularFriesImg from "@/assets/menu/regular-fries.jpg";
-import largeFriesImg from "@/assets/menu/large-fries.jpg";
-import friesImg from "@/assets/menu/sides-fries.jpg";
-import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
-import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
-import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
-import butterCroissantImg from "@/assets/menu/butter-croissant.jpg";
 
 export type MenuItemSize = {
   label: string;
@@ -180,7 +174,7 @@ export const menuItems: MenuItem[] = [
     badge: "Fan Favourite",
   },
 
-  // === HOT COFFEE ===
+  // === HOT COFFEE (with Small/Regular/Large sizes) ===
   {
     id: "americano",
     name: "Americano",
@@ -188,6 +182,11 @@ export const menuItems: MenuItem[] = [
     price: 450,
     image: americanoImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 360 },
+      { label: "Regular", price: 450 },
+      { label: "Large", price: 540 },
+    ],
   },
   {
     id: "latte",
@@ -196,6 +195,11 @@ export const menuItems: MenuItem[] = [
     price: 650,
     image: latteImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 520 },
+      { label: "Regular", price: 650 },
+      { label: "Large", price: 780 },
+    ],
   },
   {
     id: "cappuccino",
@@ -204,6 +208,11 @@ export const menuItems: MenuItem[] = [
     price: 650,
     image: cappuccinoImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 520 },
+      { label: "Regular", price: 650 },
+      { label: "Large", price: 780 },
+    ],
   },
   {
     id: "caramel-latte",
@@ -213,6 +222,11 @@ export const menuItems: MenuItem[] = [
     image: caramelLatteImg,
     category: "Hot Coffee",
     badge: "Popular",
+    sizes: [
+      { label: "Small", price: 560 },
+      { label: "Regular", price: 700 },
+      { label: "Large", price: 840 },
+    ],
   },
   {
     id: "mocha",
@@ -221,6 +235,11 @@ export const menuItems: MenuItem[] = [
     price: 750,
     image: mochaImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 600 },
+      { label: "Regular", price: 750 },
+      { label: "Large", price: 900 },
+    ],
   },
   {
     id: "hot-chocolate",
@@ -229,6 +248,11 @@ export const menuItems: MenuItem[] = [
     price: 780,
     image: hotChocolateImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 624 },
+      { label: "Regular", price: 780 },
+      { label: "Large", price: 936 },
+    ],
   },
   {
     id: "espresso",
@@ -237,6 +261,11 @@ export const menuItems: MenuItem[] = [
     price: 550,
     image: espressoImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 440 },
+      { label: "Regular", price: 550 },
+      { label: "Large", price: 660 },
+    ],
   },
   {
     id: "macchiato",
@@ -245,9 +274,14 @@ export const menuItems: MenuItem[] = [
     price: 530,
     image: macchiatoImg,
     category: "Hot Coffee",
+    sizes: [
+      { label: "Small", price: 424 },
+      { label: "Regular", price: 530 },
+      { label: "Large", price: 636 },
+    ],
   },
 
-  // === COLD COFFEE ===
+  // === COLD COFFEE (with Small/Regular/Large sizes) ===
   {
     id: "iced-americano",
     name: "Iced Americano",
@@ -255,6 +289,11 @@ export const menuItems: MenuItem[] = [
     price: 670,
     image: icedAmericanoImg,
     category: "Cold Coffee",
+    sizes: [
+      { label: "Small", price: 536 },
+      { label: "Regular", price: 670 },
+      { label: "Large", price: 804 },
+    ],
   },
   {
     id: "iced-latte",
@@ -263,6 +302,11 @@ export const menuItems: MenuItem[] = [
     price: 850,
     image: icedLatteImg,
     category: "Cold Coffee",
+    sizes: [
+      { label: "Small", price: 680 },
+      { label: "Regular", price: 850 },
+      { label: "Large", price: 1020 },
+    ],
   },
   {
     id: "iced-mocha",
@@ -271,6 +315,11 @@ export const menuItems: MenuItem[] = [
     price: 920,
     image: icedMochaImg,
     category: "Cold Coffee",
+    sizes: [
+      { label: "Small", price: 736 },
+      { label: "Regular", price: 920 },
+      { label: "Large", price: 1104 },
+    ],
   },
   {
     id: "iced-caramel-latte",
@@ -280,6 +329,11 @@ export const menuItems: MenuItem[] = [
     image: icedCaramelLatteImg,
     category: "Cold Coffee",
     badge: "Popular",
+    sizes: [
+      { label: "Small", price: 776 },
+      { label: "Regular", price: 970 },
+      { label: "Large", price: 1164 },
+    ],
   },
 
   // === DIVINE CAKES ===

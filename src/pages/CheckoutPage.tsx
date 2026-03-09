@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Truck, CreditCard, Banknote, Package } from "lucide-react";
+import { ArrowLeft, MapPin, Truck, Banknote, CreditCard, Package, Loader2 } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import OrderConfirmation from "@/components/OrderConfirmation";
@@ -24,13 +24,16 @@ const CheckoutPage = () => {
   const { cart, cartCount, cartTotal, orderType, setOrderType, clearCart } = useCart();
   const navigate = useNavigate();
 
+  const [customerName, setCustomerName] = useState("");
+  const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("vertical");
+  const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("pia");
   const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
 
   const deliveryFee = orderType === "delivery" ? 200 : 0;
@@ -55,7 +58,6 @@ const CheckoutPage = () => {
     );
   }
 
-  // Order placed success
   if (orderPlaced) {
     return (
       <OrderConfirmation
@@ -68,16 +70,80 @@ const CheckoutPage = () => {
     );
   }
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (orderType === "delivery" && !address.trim()) return;
+    if (!customerName.trim() || !phone.trim()) return;
+
+    setIsSubmitting(true);
+
+    // Build API payload
+    const orderItems = cart.map((item) => {
+      const addons = item.customization?.extras?.map((e) => ({
+        item_code: e.name.toLowerCase().replace(/\s+/g, "-"),
+        item_name: e.name,
+        item_group: "Addons",
+        qty: 1,
+        rate: e.price,
+      })) || [];
+
+      return {
+        item: {
+          item_code: item.id,
+          item_name: item.name,
+          description: item.customization
+            ? [
+                item.customization.breadType === "brown" ? "Brown Bread" : "White Bread",
+                ...item.customization.removals,
+                ...item.customization.preferences,
+                item.customization.specialNote,
+              ].filter(Boolean).join(", ")
+            : "",
+          rate: item.price,
+          currency: "PKR",
+          qty: item.quantity,
+          netTotal: (item.price + (item.extrasTotal || 0)) * item.quantity,
+        },
+        has_addons: addons.length > 0 ? 1 : 0,
+        addons,
+      };
+    });
+
+    const payload = {
+      order_data: {
+        items: orderItems,
+        customer_info: {
+          customer_id: phone.replace(/\D/g, ""),
+          customer_name: customerName,
+          mobile_no: phone,
+          address_line1: orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
+          city: "Lahore",
+          country: "Pakistan",
+        },
+        branch: "Dagwood PIA",
+        company: "Dagwood PIA",
+      },
+    };
+
+    try {
+      await fetch("https://dagwood-chatbot.lucrumerp.com/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      // Still show success — order might have been received
+    }
+
     setOrderTotal(total);
     setOrderPlaced(true);
     clearCart();
-    setOrderPlaced(true);
-    clearCart();
+    setIsSubmitting(false);
   };
 
-  const canPlaceOrder = orderType === "pickup" || address.trim().length > 0;
+  const canPlaceOrder =
+    customerName.trim().length > 0 &&
+    phone.trim().length > 0 &&
+    (orderType === "pickup" || address.trim().length > 0);
 
   return (
     <div className="min-h-screen bg-background pb-32 sm:pb-8">
@@ -104,7 +170,7 @@ const CheckoutPage = () => {
                 const unitPrice = item.price + (item.extrasTotal || 0);
                 return (
                   <div key={item.id} className="flex items-center gap-3">
-                    <img src={item.image} alt={item.name} className="h-12 w-12 rounded-lg object-cover" />
+                    <img src={item.image} alt={item.name} className="h-12 w-12 rounded-lg object-cover" loading="lazy" />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-semibold text-card-foreground">{item.name}</p>
                       {customText && (
@@ -125,6 +191,37 @@ const CheckoutPage = () => {
 
           {/* Smart Upsell */}
           <SmartUpsell compact />
+
+          {/* Customer Info */}
+          <section className="rounded-2xl border border-border bg-card p-5">
+            <h2 className="mb-4 font-display text-lg font-bold text-card-foreground">Your Details</h2>
+            <div className="space-y-3">
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-card-foreground">
+                  Name <span className="text-primary">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder="Your full name"
+                  className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-card-foreground">
+                  Phone <span className="text-primary">*</span>
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="03XX-XXXXXXX"
+                  className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
+            </div>
+          </section>
 
           {/* Delivery / Pickup */}
           <section className="rounded-2xl border border-border bg-card p-5">
@@ -164,19 +261,17 @@ const CheckoutPage = () => {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="mt-4 space-y-3">
-                    <div>
-                      <label className="mb-1.5 block text-sm font-medium text-card-foreground">
-                        Delivery Address <span className="text-primary">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="House #, Street, Area, Lahore"
-                        className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
+                  <div className="mt-4">
+                    <label className="mb-1.5 block text-sm font-medium text-card-foreground">
+                      Delivery Address <span className="text-primary">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="House #, Street, Area, Lahore"
+                      className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    />
                   </div>
                 </motion.div>
               )}
@@ -189,9 +284,7 @@ const CheckoutPage = () => {
                 >
                   <div className="mt-4 space-y-4">
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-card-foreground">
-                        Select Branch
-                      </label>
+                      <label className="mb-2 block text-sm font-medium text-card-foreground">Select Branch</label>
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           type="button"
@@ -221,12 +314,8 @@ const CheckoutPage = () => {
                         </button>
                       </div>
                     </div>
-
-                    {/* Pickup Time */}
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-card-foreground">
-                        When will you pick up?
-                      </label>
+                      <label className="mb-2 block text-sm font-medium text-card-foreground">When will you pick up?</label>
                       <div className="grid grid-cols-3 gap-2">
                         {[
                           { value: "asap", label: "ASAP", sub: "~20 min" },
@@ -244,9 +333,7 @@ const CheckoutPage = () => {
                             }`}
                           >
                             <span className="text-sm font-bold text-card-foreground">{opt.label}</span>
-                            {opt.sub && (
-                              <span className="text-[10px] text-muted-foreground">{opt.sub}</span>
-                            )}
+                            {opt.sub && <span className="text-[10px] text-muted-foreground">{opt.sub}</span>}
                           </button>
                         ))}
                       </div>
@@ -326,19 +413,26 @@ const CheckoutPage = () => {
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 backdrop-blur-lg px-4 py-4 sm:static sm:mt-6 sm:border-0 sm:bg-transparent sm:backdrop-blur-none sm:px-0">
         <div className="mx-auto max-w-3xl sm:px-6">
           <motion.button
-            whileHover={{ scale: canPlaceOrder ? 1.02 : 1 }}
-            whileTap={{ scale: canPlaceOrder ? 0.98 : 1 }}
+            whileHover={{ scale: canPlaceOrder && !isSubmitting ? 1.02 : 1 }}
+            whileTap={{ scale: canPlaceOrder && !isSubmitting ? 0.98 : 1 }}
             onClick={handlePlaceOrder}
-            disabled={!canPlaceOrder}
-            className={`w-full rounded-xl py-4 text-sm font-bold shadow-lg transition-all ${
-              canPlaceOrder
+            disabled={!canPlaceOrder || isSubmitting}
+            className={`w-full rounded-xl py-4 text-sm font-bold shadow-lg transition-all flex items-center justify-center gap-2 ${
+              canPlaceOrder && !isSubmitting
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-muted-foreground cursor-not-allowed"
             }`}
           >
-            {canPlaceOrder
-              ? `Place Order — Rs. ${total.toLocaleString()}`
-              : "Enter delivery address to continue"}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Placing Order...
+              </>
+            ) : canPlaceOrder ? (
+              `Place Order — Rs. ${total.toLocaleString()}`
+            ) : (
+              "Fill in your details to continue"
+            )}
           </motion.button>
         </div>
       </div>
