@@ -10,6 +10,7 @@ type CartContextType = {
   addToCart: (item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => void;
   updateQuantity: (id: string, delta: number) => void;
   removeItem: (id: string) => void;
+  updateItemCustomization: (id: string, customization: SandwichCustomization, extrasTotal: number) => void;
   clearCart: () => void;
   orderType: "delivery" | "pickup";
   setOrderType: (type: "delivery" | "pickup") => void;
