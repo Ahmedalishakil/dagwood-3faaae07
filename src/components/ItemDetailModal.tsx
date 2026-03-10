@@ -14,6 +14,8 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart }: Props) => {
   const [selectedSize, setSelectedSize] = useState(0);
   const [qty, setQty] = useState(1);
 
+  if (!item) return null;
+
   const currentPrice = item.sizes ? item.sizes[selectedSize].price : item.price;
 
   const handleAdd = () => {
