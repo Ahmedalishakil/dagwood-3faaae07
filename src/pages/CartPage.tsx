@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, Pencil } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
+import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { useCart } from "@/context/CartContext";
+import { menuItems } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
+import type { SandwichCustomization } from "@/types/cart";
+import type { MenuItem } from "@/data/menu";
 
 const formatCustomization = (item: CartItem): string | null => {
   if (!item.customization) return null;
@@ -20,9 +25,26 @@ const formatCustomization = (item: CartItem): string | null => {
 };
 
 const CartPage = () => {
-  const { cart, cartCount, cartTotal, updateQuantity, removeItem, addToCart, orderType } = useCart();
+  const { cart, cartCount, cartTotal, updateQuantity, removeItem, updateItemCustomization, orderType } = useCart();
   const navigate = useNavigate();
   const deliveryFee = orderType === "delivery" ? 200 : 0;
+
+  const [editingItem, setEditingItem] = useState<{ cartItem: CartItem; menuItem: MenuItem } | null>(null);
+
+  const handleEditCustomization = (cartItem: CartItem) => {
+    const baseId = cartItem.id.replace(/-\d+$/, "");
+    const menuItem = menuItems.find((m) => m.id === baseId);
+    if (menuItem) {
+      setEditingItem({ cartItem, menuItem });
+    }
+  };
+
+  const handleSaveCustomization = (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => {
+    if (editingItem) {
+      updateItemCustomization(editingItem.cartItem.id, customization, extrasTotal);
+      setEditingItem(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -92,12 +114,23 @@ const CartPage = () => {
                               </p>
                             )}
                           </div>
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="shrink-0 rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                          <div className="flex shrink-0 items-center gap-1">
+                            {item.customization && (
+                              <button
+                                onClick={() => handleEditCustomization(item)}
+                                className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+                                title="Edit customization"
+                              >
+                                <Pencil className="h-4 w-4" />
+                              </button>
+                            )}
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
                         </div>
                         <div className="mt-3 flex items-center justify-between">
                           <div className="flex items-center gap-1 rounded-full border border-border">
@@ -138,7 +171,7 @@ const CartPage = () => {
             {/* Smart Upsell */}
             <SmartUpsell />
 
-            {/* Summary (sticky on mobile) */}
+            {/* Summary */}
             <div className="mt-8 rounded-2xl border border-border bg-card p-6">
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-muted-foreground">
@@ -168,6 +201,17 @@ const CartPage = () => {
           </>
         )}
       </div>
+
+      {/* Sandwich Customizer for editing */}
+      {editingItem && (
+        <SandwichCustomizer
+          item={editingItem.menuItem}
+          isOpen={!!editingItem}
+          onClose={() => setEditingItem(null)}
+          onAddToCart={handleSaveCustomization}
+          initialCustomization={editingItem.cartItem.customization}
+        />
+      )}
     </div>
   );
 };
