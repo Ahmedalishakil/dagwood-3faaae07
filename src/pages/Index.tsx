@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import type { SandwichCustomization } from "@/types/cart";
 import lahoreSkyline from "@/assets/lahore-skyline.png";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
@@ -9,7 +10,7 @@ import TrustBar from "@/components/TrustBar";
 import CategoryFilter, { categoryToId } from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 import MenuCardSkeleton from "@/components/MenuCardSkeleton";
-import SandwichCustomizer from "@/components/SandwichCustomizer";
+
 import ItemDetailModal from "@/components/ItemDetailModal";
 import SandySection from "@/components/SandySection";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
@@ -18,7 +19,7 @@ import { useCart } from "@/context/CartContext";
 
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("All Items");
-  const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
+  
   const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { addToCart, cartCount, cartTotal } = useCart();
@@ -72,10 +73,6 @@ const Index = () => {
   }, []);
 
   const handleAddToCart = (item: MenuItem) => {
-    if (item.category === "Sandwiches") {
-      setCustomizerItem(item);
-      return;
-    }
     setDetailItem(item);
   };
 
@@ -83,6 +80,10 @@ const Index = () => {
     for (let i = 0; i < qty; i++) {
       addToCart(item);
     }
+  };
+
+  const handleDetailAddToCartCustomized = (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => {
+    addToCart(item, customization, extrasTotal);
   };
 
   return (
@@ -157,20 +158,12 @@ const Index = () => {
 
       <WhatsAppFloat />
 
-      {customizerItem && (
-        <SandwichCustomizer
-          item={customizerItem}
-          isOpen={!!customizerItem}
-          onClose={() => setCustomizerItem(null)}
-          onAddToCart={addToCart}
-        />
-      )}
-
       <ItemDetailModal
         item={detailItem!}
         isOpen={!!detailItem}
         onClose={() => setDetailItem(null)}
         onAddToCart={handleDetailAddToCart}
+        onAddToCartCustomized={handleDetailAddToCartCustomized}
       />
     </div>
   );
