@@ -10,6 +10,7 @@ type CartContextType = {
   addToCart: (item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => void;
   updateQuantity: (id: string, delta: number) => void;
   removeItem: (id: string) => void;
+  updateItemCustomization: (id: string, customization: SandwichCustomization, extrasTotal: number) => void;
   clearCart: () => void;
   orderType: "delivery" | "pickup";
   setOrderType: (type: "delivery" | "pickup") => void;
@@ -86,6 +87,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     toast("Item removed from cart");
   }, []);
 
+  const updateItemCustomization = useCallback((id: string, customization: SandwichCustomization, extrasTotal: number) => {
+    setCart((prev) =>
+      prev.map((c) => c.id === id ? { ...c, customization, extrasTotal } : c)
+    );
+    toast.success("Customization updated!");
+  }, []);
+
   const clearCart = useCallback(() => {
     setCart([]);
   }, []);
@@ -95,7 +103,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ cart, cartCount, cartTotal, addToCart, updateQuantity, removeItem, clearCart, orderType, setOrderType }}
+      value={{ cart, cartCount, cartTotal, addToCart, updateQuantity, removeItem, updateItemCustomization, clearCart, orderType, setOrderType }}
     >
       {children}
     </CartContext.Provider>

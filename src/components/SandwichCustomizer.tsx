@@ -9,6 +9,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   onAddToCart: (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => void;
+  initialCustomization?: SandwichCustomization;
 };
 
 // Real addons from menu.json — Special Instructions (free toppings)
@@ -49,8 +50,17 @@ const defaultState: SandwichCustomization = {
   specialNote: "",
 };
 
-const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
-  const [customization, setCustomization] = useState<SandwichCustomization>({ ...defaultState });
+const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart, initialCustomization }: Props) => {
+  const [customization, setCustomization] = useState<SandwichCustomization>(
+    initialCustomization ? { ...initialCustomization } : { ...defaultState }
+  );
+
+  // Reset state when modal opens with new initial customization
+  const [lastOpen, setLastOpen] = useState(false);
+  if (isOpen && !lastOpen) {
+    setCustomization(initialCustomization ? { ...initialCustomization } : { ...defaultState });
+  }
+  if (isOpen !== lastOpen) setLastOpen(isOpen);
 
   const extrasTotal = useMemo(
     () => customization.extras.reduce((sum, e) => sum + e.price, 0),
