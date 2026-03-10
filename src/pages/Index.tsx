@@ -10,6 +10,7 @@ import CategoryFilter, { categoryToId } from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 import MenuCardSkeleton from "@/components/MenuCardSkeleton";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
+import ItemDetailModal from "@/components/ItemDetailModal";
 import SandySection from "@/components/SandySection";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { menuItems, categories, type MenuItem } from "@/data/menu";
@@ -18,6 +19,7 @@ import { useCart } from "@/context/CartContext";
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("All Items");
   const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
+  const [detailItem, setDetailItem] = useState<MenuItem | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { addToCart, cartCount, cartTotal } = useCart();
   const navigate = useNavigate();
@@ -74,7 +76,13 @@ const Index = () => {
       setCustomizerItem(item);
       return;
     }
-    addToCart(item);
+    setDetailItem(item);
+  };
+
+  const handleDetailAddToCart = (item: MenuItem, qty: number) => {
+    for (let i = 0; i < qty; i++) {
+      addToCart(item);
+    }
   };
 
   return (
@@ -157,6 +165,13 @@ const Index = () => {
           onAddToCart={addToCart}
         />
       )}
+
+      <ItemDetailModal
+        item={detailItem!}
+        isOpen={!!detailItem}
+        onClose={() => setDetailItem(null)}
+        onAddToCart={handleDetailAddToCart}
+      />
     </div>
   );
 };
