@@ -65,10 +65,17 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
   }
   if (isOpen !== lastOpen) setLastOpen(isOpen);
 
-  if (!item) return null;
+  const isCustomizable = item ? item.category === "Sandwiches" : false;
+  const currentPrice = item ? (item.sizes ? item.sizes[selectedSize].price : item.price) : 0;
 
-  const isCustomizable = item.category === "Sandwiches";
-  const currentPrice = item.sizes ? item.sizes[selectedSize].price : item.price;
+  const extrasTotal = useMemo(
+    () => customization.extras.reduce((sum, e) => sum + e.price, 0),
+    [customization.extras]
+  );
+
+  const totalPrice = (currentPrice + (isCustomizable ? extrasTotal : 0)) * qty;
+
+  if (!item) return null;
 
   const extrasTotal = useMemo(
     () => customization.extras.reduce((sum, e) => sum + e.price, 0),

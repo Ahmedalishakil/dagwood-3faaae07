@@ -72,10 +72,6 @@ const Index = () => {
   }, []);
 
   const handleAddToCart = (item: MenuItem) => {
-    if (item.category === "Sandwiches") {
-      setCustomizerItem(item);
-      return;
-    }
     setDetailItem(item);
   };
 
@@ -83,6 +79,10 @@ const Index = () => {
     for (let i = 0; i < qty; i++) {
       addToCart(item);
     }
+  };
+
+  const handleDetailAddToCartCustomized = (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => {
+    addToCart(item, customization, extrasTotal);
   };
 
   return (
