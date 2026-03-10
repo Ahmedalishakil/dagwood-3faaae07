@@ -76,7 +76,13 @@ const Index = () => {
       setCustomizerItem(item);
       return;
     }
-    addToCart(item);
+    setDetailItem(item);
+  };
+
+  const handleDetailAddToCart = (item: MenuItem, qty: number) => {
+    for (let i = 0; i < qty; i++) {
+      addToCart(item);
+    }
   };
 
   return (
