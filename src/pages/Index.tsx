@@ -165,6 +165,13 @@ const Index = () => {
           onAddToCart={addToCart}
         />
       )}
+
+      <ItemDetailModal
+        item={detailItem!}
+        isOpen={!!detailItem}
+        onClose={() => setDetailItem(null)}
+        onAddToCart={handleDetailAddToCart}
+      />
     </div>
   );
 };
