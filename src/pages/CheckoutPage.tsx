@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, MapPin, Truck, Banknote, CreditCard, Package, Loader2 } from "lucide-react";
@@ -174,6 +175,10 @@ const CheckoutPage = () => {
       // Still show success — order might have been received
     }
 
+    toast.success("Thank you for your order! 🎉", {
+      description: "Please check your WhatsApp for further details. Sandy will assist you there.",
+      duration: 6000,
+    });
     setOrderTotal(total);
     setOrderPlaced(true);
     clearCart();
