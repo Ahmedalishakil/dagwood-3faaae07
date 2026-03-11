@@ -175,6 +175,10 @@ const CheckoutPage = () => {
       // Still show success — order might have been received
     }
 
+    toast.success("Thank you for your order! 🎉", {
+      description: "Please check your WhatsApp for further details. Sandy will assist you there.",
+      duration: 6000,
+    });
     setOrderTotal(total);
     setOrderPlaced(true);
     clearCart();

@@ -17,7 +17,7 @@ const OrderConfirmation = ({
   pickupBranch,
   onBackToMenu,
 }: OrderConfirmationProps) => {
-  const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20Sandy%20AI!%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20Can%20you%20help%20me%20track%20it%3F`;
+  const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20there!%20%F0%9F%91%8B%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20What%20would%20you%20like%20today%3F`;
 
   return (
     <div className="min-h-screen bg-background">
