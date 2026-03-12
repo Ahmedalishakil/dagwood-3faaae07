@@ -152,7 +152,7 @@ const DagwoodHeader = () => {
         </div>
       </div>
 
-      <div className="flex sm:hidden items-center justify-center gap-2 border-t border-border px-4 py-2">
+      <div className="flex sm:hidden items-center justify-center gap-2 border-t border-border px-4 h-10">
         <button
           onClick={() => setOrderType("delivery")}
           className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
