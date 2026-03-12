@@ -257,8 +257,8 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
                               <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                                 Bread Type
                               </h4>
-                              <div className="grid grid-cols-3 gap-2">
-                                {(["white", "brown", "bran"] as const).map((type) => (
+                              <div className="grid grid-cols-2 gap-2">
+                                {(["white", "bran"] as const).map((type) => (
                                   <button
                                     key={type}
                                     onClick={() => setCustomization((prev) => ({ ...prev, breadType: type }))}
@@ -268,7 +268,7 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
                                         : "border-border hover:border-muted-foreground/30"
                                     }`}
                                   >
-                                    <span>{type === "white" ? "White" : type === "brown" ? "Brown" : "Bran"}</span>
+                                    <span>{type === "white" ? "White" : "Bran Bread"}</span>
                                     {type === "bran" && (
                                       <span className="block text-xs font-semibold text-primary">+Rs. {BRAN_BREAD_PRICE}</span>
                                     )}
