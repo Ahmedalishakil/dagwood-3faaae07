@@ -71,7 +71,7 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart, initialCustomi
 
   const summary = useMemo(() => {
     const parts: string[] = [];
-    parts.push(customization.breadType === "brown" ? "Brown Bread" : "White Bread");
+    parts.push(customization.breadType === "bran" ? "Bran Bread" : "White Bread");
     customization.removals.forEach((r) => parts.push(r));
     customization.extras.forEach((e) => parts.push(e.name));
     customization.preferences.forEach((p) => parts.push(p));

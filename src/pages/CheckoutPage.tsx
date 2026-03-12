@@ -136,7 +136,7 @@ const CheckoutPage = () => {
           item_code: itemCode,
           item_name: item.name,
           description: item.customization
-            ? `${item.customization.breadType === "brown" ? "Brown Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map(e => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
+            ? `${item.customization.breadType === "bran" ? "Bran Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map(e => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
             : "",
           rate: item.price,
           currency: "PKR",
