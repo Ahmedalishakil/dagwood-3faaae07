@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
 import banner1 from "@/assets/banner1.jpeg";
 import banner2 from "@/assets/banner2.jpeg";
 
@@ -7,32 +6,46 @@ const slides = [banner1, banner2];
 
 const HeroBanner = () => {
   const [current, setCurrent] = useState(0);
+  const [ready, setReady] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval>>();
+
+  // Preload all images before showing the slider
+  useEffect(() => {
+    let loaded = 0;
+    slides.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => {
+        loaded++;
+        if (loaded === slides.length) setReady(true);
+      };
+    });
+  }, []);
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(next, 4500);
-    return () => clearInterval(timer);
-  }, [next]);
+    if (!ready) return;
+    timerRef.current = setInterval(next, 4500);
+    return () => clearInterval(timerRef.current);
+  }, [next, ready]);
 
   return (
     <section className="relative w-full overflow-hidden" style={{ aspectRatio: "16 / 5" }}>
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={current}
-          src={slides[current]}
-          alt={`Banner ${current + 1}`}
-          loading="eager"
+      {/* All images always mounted, visibility toggled via opacity for instant switching */}
+      {slides.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt={`Banner ${i + 1}`}
           fetchPriority="high"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="absolute inset-0 h-full w-full object-cover"
+          decoding="sync"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out will-change-[opacity]"
+          style={{ opacity: i === current ? 1 : 0 }}
         />
-      </AnimatePresence>
+      ))}
 
       {/* Dots */}
       <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
