@@ -99,6 +99,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
   const [nearestInfo, setNearestInfo] = useState<{ branch: Branch; distance: number } | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number }>(LAHORE_CENTER);
   const abortRef = useRef<AbortController | null>(null);
+  const [mapReady, setMapReady] = useState(false);
 
   const reverseGeocode = useCallback(async (lat: number, lng: number) => {
     abortRef.current?.abort();
@@ -131,8 +132,16 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
     [reverseGeocode]
   );
 
+  // Use a callback ref to detect when the map div is actually in the DOM
+  const mapCallbackRef = useCallback((node: HTMLDivElement | null) => {
+    (mapRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    if (node && open) {
+      setMapReady(true);
+    }
+  }, [open]);
+
   useEffect(() => {
-    if (!open || !mapRef.current) return;
+    if (!open || !mapReady || !mapRef.current) return;
     if (leafletMap.current) return;
 
     const map = L.map(mapRef.current, {
@@ -199,7 +208,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
     setTimeout(() => map.invalidateSize(), 800);
 
     return () => {};
-  }, [open, updateLocation]);
+  }, [open, mapReady, updateLocation]);
 
   // Cleanup on close
   useEffect(() => {
@@ -207,6 +216,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       leafletMap.current.remove();
       leafletMap.current = null;
       centerMarker.current = null;
+      setMapReady(false);
     }
   }, [open]);
 
@@ -245,7 +255,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
 
         {/* Map */}
         <div className="relative w-full" style={{ height: "55vh", minHeight: 280 }}>
-          <div ref={mapRef} className="h-full w-full" />
+          <div ref={mapCallbackRef} className="h-full w-full" />
           {/* Locate me button */}
           <button
             onClick={handleLocateMe}
