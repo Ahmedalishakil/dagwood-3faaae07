@@ -132,8 +132,16 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
     [reverseGeocode]
   );
 
+  // Use a callback ref to detect when the map div is actually in the DOM
+  const mapCallbackRef = useCallback((node: HTMLDivElement | null) => {
+    (mapRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    if (node && open) {
+      setMapReady(true);
+    }
+  }, [open]);
+
   useEffect(() => {
-    if (!open || !mapRef.current) return;
+    if (!open || !mapReady || !mapRef.current) return;
     if (leafletMap.current) return;
 
     const map = L.map(mapRef.current, {
@@ -200,7 +208,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
     setTimeout(() => map.invalidateSize(), 800);
 
     return () => {};
-  }, [open, updateLocation]);
+  }, [open, mapReady, updateLocation]);
 
   // Cleanup on close
   useEffect(() => {
