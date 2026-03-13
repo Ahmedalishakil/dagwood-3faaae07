@@ -96,7 +96,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const [withinRange, setWithinRange] = useState(true);
-  const [nearestInfo, setNearestInfo] = useState<{ branch: typeof BRANCHES[number]; distance: number } | null>(null);
+  const [nearestInfo, setNearestInfo] = useState<{ branch: Branch; distance: number } | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number }>(LAHORE_CENTER);
   const abortRef = useRef<AbortController | null>(null);
 
