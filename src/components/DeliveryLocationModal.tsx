@@ -5,7 +5,14 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MapPin, Loader2, Navigation, AlertTriangle } from "lucide-react";
 
-const BRANCHES = [
+type Branch = {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+};
+
+const BRANCHES: Branch[] = [
   {
     name: "PIA Road Branch",
     address: "9-D PIA Road, Main Blvd, near Wapda Town",
@@ -18,7 +25,7 @@ const BRANCHES = [
     lat: 31.3809727527684,
     lng: 74.25553485857607,
   },
-] as const;
+];
 
 const DELIVERY_RADIUS_KM = 10;
 const LAHORE_CENTER = { lat: 31.41, lng: 74.27 };
